@@ -1,0 +1,61 @@
+const mongoose=require("mongoose")
+const postSchema=new mongoose.Schema({
+    circleName:{
+        type:String,
+        required:true
+    },
+    caption:{
+        type:String,
+        required:true
+    },
+    image:{
+        type:String
+    },
+    numOfLikes:{
+        type:Number
+    },
+    numOfComments:{
+        type:Number
+    },
+    likes:[
+        {
+            userID:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"User"
+            },
+            userName:{
+                type:String
+            }
+        }
+    ],
+    comments:[
+        {
+            userID:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"User"
+            },
+            userName:{
+                type:String
+            },
+            comment:{
+                type:String,
+                required:true
+            }
+        },
+    ],
+    likes:[
+        {
+            userID:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"User"
+            },
+            userName:{
+                type:String
+            }
+        }
+    ],
+})
+
+
+const Post=mongoose.model("Post",postSchema)
+module.exports=Post;
