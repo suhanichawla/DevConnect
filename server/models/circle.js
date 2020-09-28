@@ -6,13 +6,8 @@ const circleSchema=new mongoose.Schema({
     },
     members:[
         {
-            userID:{
-                type:mongoose.Schema.Types.ObjectId,
-                ref:"User"
-            },
-            userName:{
-                type:String
-            }
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User"
         }
     ],
     posts:[
@@ -21,7 +16,7 @@ const circleSchema=new mongoose.Schema({
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"Post"
             },
-            userCategory:{
+            postCategory:{
                 type:String
             }
         }

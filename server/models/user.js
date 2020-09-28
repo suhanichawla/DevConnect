@@ -29,16 +29,18 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     circles:[
-        {
-            circleID:{
-                type:mongoose.Schema.Types.ObjectId,
-                ref:"Circle"
-            },
-            circleName:{
-                type:String
-            }
+        {    
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Circle"   
         }
-    ]
+    ],
+    posts:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Circle"
+        }
+    ],
+
 })
 
 userSchema.pre("save",async function(next){
