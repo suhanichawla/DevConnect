@@ -1,10 +1,12 @@
 const mongoose=require("mongoose")
+const User=require("./user")
+const Circle=require("./circle")
 const postSchema=new mongoose.Schema({
-    circleName:{
+    caption:{
         type:String,
         required:true
     },
-    caption:{
+    category:{
         type:String,
         required:true
     },
@@ -16,6 +18,14 @@ const postSchema=new mongoose.Schema({
     },
     numOfComments:{
         type:Number
+    },
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
+    circle:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Circle"
     },
     likes:[
         {
@@ -40,6 +50,22 @@ const postSchema=new mongoose.Schema({
         timestamps:true
     }
 )
+
+postSchema.pre("remove",async function(next){
+    try{
+        //console.log("coming heeree")
+        let user=await User.findById(this.user);
+        console.log("user is ",user)
+        user.posts.remove(this.id)
+        await user.save();
+        let circle=await Circle.findById(this.circle);
+        circle.posts.remove(this.id)
+        await circle.save();
+        return next();
+    }catch(e){
+        return next(e)
+    }
+})
 
 
 const Post=mongoose.model("Post",postSchema)

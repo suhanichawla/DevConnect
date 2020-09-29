@@ -5,6 +5,7 @@ var app=express()
 var bodyParser=require("body-parser")
 var cors=require("cors")
 var authRoutes=require("./routes/auth")
+var postRoutes=require("./routes/posts")
 var errorHandler=require("./handlers/error")
 var db=require("./models")
 const port=process.env.PORT || 8080;
@@ -13,8 +14,10 @@ const port=process.env.PORT || 8080;
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
 
 app.use("/api/auth",authRoutes)
+app.use("/api/:userID/post",postRoutes)
 
 
 
