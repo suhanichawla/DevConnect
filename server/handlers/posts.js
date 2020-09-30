@@ -52,7 +52,7 @@ exports.likePost=async function(req,res,next){
         let found_post=await db.Post.findById(req.params.postID);
         let likes=found_post["likes"].filter((el)=>{
             console.log("el is",el);
-            el!=req.params.userID
+            return el!=req.params.userID
         })
         console.log(likes);
         let numOfLikes;
@@ -62,7 +62,38 @@ exports.likePost=async function(req,res,next){
             numOfLikes=found_post["numOfLikes"]+1;
             likes.push(req.params.userID)
         }
-        updated_post=await db.Post.updateOne({_id:req.params.postID},{$set:{numOfLikes,likes}})
+        updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{numOfLikes,likes}},{ returnOriginal: false })
+        return res.status(200).json(updated_post)
+    }catch(e){
+        return next(e);
+    }
+}
+
+exports.commentOnPost=async function(req,res,next){
+    try{
+        let found_post=await db.Post.findById(req.params.postID);
+        let comments=found_post["comments"]
+        let obj={userID:req.params.userID,comment:req.body.comment}
+       // console.log(obj);
+        comments.push(obj)
+        let numOfComments=comments.length;
+       // console.log("comments is ",comments)
+        updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{comments,numOfComments}},{new: true})
+      //  console.log("updated post",updated_post);
+        return res.status(200).json(updated_post)
+    }catch(e){
+        return next(e);
+    }
+}
+
+exports.deleteComment=async function(req,res,next){
+    try{
+        let found_post=await db.Post.findById(req.params.postID);
+        let comments=found_post["comments"].filter((el)=>{
+            return el._id!=req.params.commentID || el.userID!=req.params.userID
+        })
+        let numOfComments=comments.length;
+        updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{comments,numOfComments}},{new: true})
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
