@@ -7,19 +7,27 @@ var cors=require("cors")
 var authRoutes=require("./routes/auth")
 var postRoutes=require("./routes/posts")
 var circleRoutes=require('./routes/circles')
+var unauthRoutes=require("./routes/unauth")
 var errorHandler=require("./handlers/error")
 var db=require("./models")
 const port=process.env.PORT || 8080;
-
-
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
+app.get("/api/getCategories",(req,res,next)=>{
+    try{
+        res.send(["fun","project","resources"])
+    }catch(e){
+        return next(e)
+    }
+})
 app.use("/api/auth",authRoutes)
 app.use("/api/:userID/post",postRoutes)
 app.use("/api/:userID/circle",circleRoutes)
+app.use("/api/:circleID",unauthRoutes)
+
 
 app.use((req,res,next)=>{
     let err=new Error("NOT FOUND")
