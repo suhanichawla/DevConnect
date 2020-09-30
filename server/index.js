@@ -6,6 +6,7 @@ var bodyParser=require("body-parser")
 var cors=require("cors")
 var authRoutes=require("./routes/auth")
 var postRoutes=require("./routes/posts")
+var circleRoutes=require('./routes/circles')
 var errorHandler=require("./handlers/error")
 var db=require("./models")
 const port=process.env.PORT || 8080;
@@ -18,8 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 app.use("/api/auth",authRoutes)
 app.use("/api/:userID/post",postRoutes)
-
-
+app.use("/api/:userID/circle",circleRoutes)
 
 app.use((req,res,next)=>{
     let err=new Error("NOT FOUND")
