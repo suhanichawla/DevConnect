@@ -1,10 +1,10 @@
 var express=require("express")
 const router=express.Router({ mergeParams: true })
-const {joinCircle}=require("../handlers/circles")
+const {joinCircle,leaveCircle}=require("../handlers/circles")
 
 
 router.get("/:circleID/join",joinCircle)
-// router.get("/:circleID/leave",leaveCircle)
+router.get("/:circleID/leave",leaveCircle)
 
 
 
