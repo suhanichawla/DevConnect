@@ -9,6 +9,5 @@ router.route("/:postID")
       .delete(deletePost);
 
 router.get("/:postID/like",likePost)
-router.get("/:postID/unlike")
 
 module.exports=router

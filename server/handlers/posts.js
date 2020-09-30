@@ -47,20 +47,23 @@ exports.deletePost= async function(req,res,next){
     }
 }
 
-exports.unlikePost=async function(req,res,next){
-   
-}
-
 exports.likePost=async function(req,res,next){
     try{
         let found_post=await db.Post.findById(req.params.postID);
-        console.log("found post",found_post);
-        let numOfLikes=found_post["numOfLikes"]+1;
-        let likes=found_post["likes"]
-        likes.push(req.params.userID)
-        console.log("likes and num",likes,numOfLikes)
+        let likes=found_post["likes"].filter((el)=>{
+            console.log("el is",el);
+            el!=req.params.userID
+        })
+        console.log(likes);
+        let numOfLikes;
+        if(likes.length<found_post["likes"].length){
+            numOfLikes=found_post["numOfLikes"]-1;
+        }else{
+            numOfLikes=found_post["numOfLikes"]+1;
+            likes.push(req.params.userID)
+        }
         updated_post=await db.Post.updateOne({_id:req.params.postID},{$set:{numOfLikes,likes}})
-        return res.status(200).json(updated_post);
+        return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
     }
