@@ -37,7 +37,7 @@ const userSchema=new mongoose.Schema({
     posts:[
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:"Circle"
+            ref:"Post"
         }
     ],
 

@@ -99,3 +99,14 @@ exports.deleteComment=async function(req,res,next){
         return next(e);
     }
 }
+
+
+exports.getPosts=async function(req,res,next){
+    try{
+        let foundUser=await db.User.findById(req.params.userID)
+            .populate("posts")               
+        return res.status(200).json(foundUser.posts);
+    }catch(e){
+        return next(e)
+    }
+}
