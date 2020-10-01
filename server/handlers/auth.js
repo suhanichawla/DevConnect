@@ -31,6 +31,7 @@ exports.signup=async function(req,res,next){
         userdata=req.body
         userdata["profilePic"]=null;
         userdata["circles"]=[];
+        userdata["posts"]=[];
         let user=await db.User.create(userdata)
         let token=jwt.sign({
             ...user._doc

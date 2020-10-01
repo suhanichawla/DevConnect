@@ -10,6 +10,7 @@ var circleRoutes=require('./routes/circles')
 var unauthRoutes=require("./routes/unauth")
 var errorHandler=require("./handlers/error")
 var db=require("./models")
+const {loginRequired,correctUser}=require("./middleware/auth")
 const port=process.env.PORT || 8080;
 
 app.use(cors())
@@ -24,10 +25,12 @@ app.get("/api/getCategories",(req,res,next)=>{
     }
 })
 app.use("/api/auth",authRoutes)
-app.use("/api/:userID/post",postRoutes)
-app.use("/api/:userID/circle",circleRoutes)
+app.use("/api/:userID/post",loginRequired,correctUser,postRoutes)
+app.use("/api/:userID/circle",loginRequired,correctUser,circleRoutes)
 app.use("/api/:circleID",unauthRoutes)
 
+
+//TODO: SET UP MIDDLEWARE FOR THE SCENARIO: USER SHOULD MAKE POSTS ONLY IN CIRCLE HE/SHE IS PART OF
 
 app.use((req,res,next)=>{
     let err=new Error("NOT FOUND")
