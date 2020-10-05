@@ -1,23 +1,37 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, Footer, Sidebar ,Navbar,FlexboxGrid,Panel,Form,FormControl,FormGroup,ControlLabel,Button,ButtonToolbar} from 'rsuite';
-import {  HelpBlock,Nav,Icon,Dropdown } from 'rsuite';
-import MyNavbar from './navbar'
-import IntroDiv from './introdiv'
-import 'rsuite/dist/styles/rsuite-default.css';
-import SignInForm from './signinForm';
-export default class Main extends Component {
-  render() {
-    return (
-    <div className="show-fake-browser navbar-page">
-    <Container>
-      <MyNavbar />
-      <div style={{height:"7vh"}}></div>
-      <div style={{display:"flex",flexWrap:"wrap"}}>
-        <IntroDiv />
-      <SignInForm />
-      </div>
-    </Container>
-    </div>
-    );
-  }
+import React from "react"
+import {Switch,Route,withRouter,Redirect} from "react-router-dom"
+import {connect} from "react-redux";
+import {authUser} from "../store/actions/auth"
+import {removeError} from "../store/actions/error"
+
+import Homepage from './homepage'
+import Signup from "./signup";
+
+
+const Main= props=>{
+    const {authUser,errors,removeError,currentUser} = props;
+    console.log(currentUser)
+    return(
+        <div className="container">
+            <Switch>
+    <Route exact path="/" render={props => <Homepage currentUser={currentUser} {...props}/>}></Route>
+    <Route exact path="/signup" render={props => <Signup {...props}/>}></Route>
+    {/* <Route exact path="/signup"  render={props => <Authform onAuth={authUser} removeError={removeError} error={errors} buttontext="Sign me up!" signup heading="Join createSpace" {...props}/>}></Route>
+    <Route exact path="/signin"  render={props => <Authform onAuth={authUser} removeError={removeError} error={errors} buttontext="Log in" heading="Welcome back" {...props}/>}></Route> */}
+    {/* <Route
+          path="/users/:id/messages/new"
+          component={withAuth(MessageForm)}
+        /> */}
+            </Switch>
+        </div>
+    )
 }
+function mapStateToProps(state){
+    return({
+        currentUser:state.currentUser,
+        errors:state.errors
+
+    })
+}
+
+export default withRouter(connect(mapStateToProps,{authUser,removeError})(Main));
