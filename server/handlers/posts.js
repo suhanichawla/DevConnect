@@ -17,7 +17,7 @@ exports.addPost=async function(req,res,next){
         let foundUser=await db.User.findById(req.params.userID)
         foundUser.posts.push(post.id)
         await foundUser.save();
-        foundCircle.posts.push(post.id)
+        foundCircle.posts.push({postID:post.id,postCategory:post.category});
         await foundCircle.save();
         let foundPost=await db.Post.findById(post._id)
         .populate("user",{
@@ -44,6 +44,43 @@ exports.deletePost= async function(req,res,next){
     }catch(e){
         return next(e);
 
+    }
+}
+
+exports.userCirclePosts=async function(req,res,next){
+    try{
+        console.log("coming in this func with id",req.params.circleID)
+        let user=await db.User.findById(req.params.circleID)
+        console.log("user? ",user.circles)
+        var responseObj={}
+        for(var i=0;i<user.circles.length;i++){
+            console.log("circle id",user.circles[i])
+            let circle=await db.Circle.findById(user.circles[i])
+                                .populate("posts.postID")
+           // console.log(circle.posts["postCategory"]fb)
+            for(var j=0;j<circle.posts.length;j++){
+                var category=circle.posts[j].postCategory
+
+                console.log("resp??",responseObj[category])
+                if(responseObj[category]){
+                    var currvalue=responseObj[category]
+                    console.log("currvalue",currvalue)
+                    currvalue.push(circle.posts[j].postID)
+                    responseObj[category]=currvalue
+                }else{
+                    console.log("so ill come here?")
+                    responseObj[category]=[circle.posts[j].postID]
+                    console.log("response obj now is ",responseObj)
+                }
+            }
+           
+           
+            
+       }
+       console.log(responseObj)
+       res.status(200).json(responseObj);
+    }catch(e){
+        console.log("err is",e)
     }
 }
 

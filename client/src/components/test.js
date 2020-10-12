@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {fetchPosts} from '../store/actions/posts'
+import {fetchCirclePosts} from '../store/actions/posts'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 class Test extends Component {
 
     componentDidMount(){
-        this.props.fetchPosts().then(()=>{
+        console.log(fetchCirclePosts)
+        this.props.fetchCirclePosts("5f7315846128224d8dac5114").then(()=>{
             console.log("hi")
         })
     }
@@ -15,4 +16,4 @@ class Test extends Component {
     );
   }
 }
-export default withRouter(connect(null,{fetchPosts})(Test));
+export default withRouter(connect(null,{fetchCirclePosts})(Test));

@@ -1,7 +1,7 @@
 var express=require("express")
 const router=express.Router({ mergeParams: true })
 const {getCirclePosts}=require("../handlers/unauth")
-
-router.post("/posts",getCirclePosts)
+const {userCirclePosts} = require("../handlers/posts")
+router.get("/posts",userCirclePosts)
 
 module.exports=router

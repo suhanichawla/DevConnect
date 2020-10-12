@@ -14,6 +14,7 @@ export function apiCall(method,path,data){
         return axios[method](path,data)
         .then(res=>(resolve(res.data)))
         .catch(err=>{
+            console.log("coming here with error",err)
             return reject(err.response.data.error)
         })
     })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {authUser} from '../store/actions/auth'
-import {fetchPosts} from '../store/actions/posts'
+import {fetchUserPosts} from '../store/actions/posts'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
@@ -78,4 +78,4 @@ class Signin extends Component {
 
 
 
-export default withRouter(connect(null,{authUser,fetchPosts})(Signin));
+export default withRouter(connect(null,{authUser})(Signin));

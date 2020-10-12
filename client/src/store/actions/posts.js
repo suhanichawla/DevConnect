@@ -1,11 +1,16 @@
 
 import {apiCall} from "../../services/api"
 import {addError} from "./error"
-import {LOAD_USER_POSTS} from "../actionTypes"
+import {LOAD_USER_POSTS,LOAD_CIRCLE_POSTS} from "../actionTypes"
 
 export const loadPosts=posts=>({
     type:LOAD_USER_POSTS,
     posts
+})
+
+export const getCirclePosts=posts=>({
+  type:LOAD_CIRCLE_POSTS,
+  posts
 })
 
 // export const remove=id=>({
@@ -13,7 +18,7 @@ export const loadPosts=posts=>({
 //   id
 // })
 
-export const fetchPosts =()=> (dispatch, getState) => {
+export const fetchUserPosts =()=> (dispatch, getState) => {
     // return dispatch => {
       let {currentUser}=getState();
       let id=currentUser.user._id;
@@ -28,6 +33,23 @@ export const fetchPosts =()=> (dispatch, getState) => {
           dispatch(addError(err.message));
         });
     // };
+  };
+
+  export function fetchCirclePosts(circleid) {
+     return dispatch => {
+      // let {currentUser}=getState();
+      // let id=currentUser.user._id;
+     // console.log("user id is",currentUser.user._id)
+      return apiCall("get", `/api/${circleid}/posts`)
+        .then(res => {
+          console.log("response",res);
+          dispatch(getCirclePosts(res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+     };
   };
 
 //   export const postMessages = text => (dispatch, getState)=>{
