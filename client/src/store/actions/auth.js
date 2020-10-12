@@ -29,6 +29,7 @@ export function authUser(type,userData){
                 resolve();
             })
             .catch(err =>{
+                console.log("coming here")
                 dispatch(addError(err.message))
                 reject();
             })
