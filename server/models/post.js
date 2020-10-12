@@ -27,6 +27,9 @@ const postSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Circle"
     },
+    circleName:{
+        type:String
+    },
     likes:[
         {
             type:mongoose.Schema.Types.ObjectId,

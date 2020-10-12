@@ -49,18 +49,24 @@ exports.deletePost= async function(req,res,next){
 
 exports.userCirclePosts=async function(req,res,next){
     try{
-        console.log("coming in this func with id",req.params.circleID)
-        let user=await db.User.findById(req.params.circleID)
+        console.log("coming in this func with id",req.params.userID)
+        let user=await db.User.findById(req.params.userID)
         console.log("user? ",user.circles)
         var responseObj={}
         for(var i=0;i<user.circles.length;i++){
             console.log("circle id",user.circles[i])
-            let circle=await db.Circle.findById(user.circles[i])
-                                .populate("posts.postID")
-           // console.log(circle.posts["postCategory"]fb)
+            var circle=await db.Circle.findById(user.circles[i]).populate({
+                path: 'posts.postID',
+                model: 'Post',
+                populate: {
+                  path: 'circle',
+                  model: 'Circle',
+                  select: 'name'
+                }
+              })
             for(var j=0;j<circle.posts.length;j++){
                 var category=circle.posts[j].postCategory
-
+                console.log("populated circle post ",circle.posts[j])
                 console.log("resp??",responseObj[category])
                 if(responseObj[category]){
                     var currvalue=responseObj[category]

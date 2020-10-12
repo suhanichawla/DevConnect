@@ -1,11 +1,12 @@
 var express=require("express")
 const router=express.Router({ mergeParams: true })
-const {addPost,deletePost,likePost,commentOnPost,deleteComment,getPosts}=require("../handlers/posts")
-
+const {addPost,deletePost,likePost,commentOnPost,deleteComment,getPosts,userCirclePosts}=require("../handlers/posts")
 
 router.route("/")
       .post(addPost)
       .get(getPosts)
+
+router.get("/feed",userCirclePosts)
 
 router.route("/:postID")
       .delete(deletePost);
