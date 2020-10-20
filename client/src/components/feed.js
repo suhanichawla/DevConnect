@@ -34,7 +34,7 @@ class Feed extends Component {
 
 function mapStateToProps(reduxState){
     return {
-        posts:reduxState.posts
+        posts:reduxState.posts.feedPosts
     }
 }
 

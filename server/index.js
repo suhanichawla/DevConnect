@@ -27,7 +27,7 @@ app.get("/api/getCategories",(req,res,next)=>{
 app.use("/api/auth",authRoutes)
 app.use("/api/:userID/post",loginRequired,correctUser,postRoutes)
 app.use("/api/:userID/circle",loginRequired,correctUser,circleRoutes)
-app.use("/api/:circleID",unauthRoutes)
+app.use("/api",unauthRoutes)
 
 
 //TODO: SET UP MIDDLEWARE FOR THE SCENARIO: USER SHOULD MAKE POSTS ONLY IN CIRCLE HE/SHE IS PART OF
