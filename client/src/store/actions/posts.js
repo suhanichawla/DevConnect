@@ -1,15 +1,15 @@
 
 import {apiCall} from "../../services/api"
 import {addError} from "./error"
-import {LOAD_USER_POSTS,LOAD_CIRCLE_POSTS} from "../actionTypes"
+import {LOAD_USER_POSTS,LOAD_FEED_POSTS} from "../actionTypes"
 
 export const loadPosts=posts=>({
     type:LOAD_USER_POSTS,
     posts
 })
 
-export const getCirclePosts=posts=>({
-  type:LOAD_CIRCLE_POSTS,
+export const loadFeedPosts=posts=>({
+  type:LOAD_FEED_POSTS,
   posts
 })
 
@@ -35,21 +35,40 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
     // };
   };
 
-  export function fetchCirclePosts(circleid) {
-     return dispatch => {
-      // let {currentUser}=getState();
-      // let id=currentUser.user._id;
-     // console.log("user id is",currentUser.user._id)
-      return apiCall("get", `/api/${circleid}/posts`)
+  export const fetchFeedPosts=()=> (dispatch, getState) => {
+    //  return dispatch => {
+      let {currentUser}=getState();
+      let userid=currentUser.user._id;
+     console.log("user id is",currentUser.user._id)
+      return apiCall("get", `/api/${userid}/post/feed`)
         .then(res => {
           console.log("response",res);
-          dispatch(getCirclePosts(res));
+          dispatch(loadFeedPosts(res));
         })
         .catch(err => {
           console.log(err)
           dispatch(addError(err.message));
         });
-     };
+    //  };
+  };
+
+  export const addPost =(data)=> (dispatch, getState) => {
+    // return dispatch => {
+      let {currentUser}=getState();
+      let id=currentUser.user._id;
+      console.log("user id is",currentUser.user._id)
+      var postData=data
+      return apiCall("post", `/api/${id}/post/`,postData)
+        .then(res => {
+          console.log("response",res);
+          //that post is returned, so basically we need to add it in the feed state!!
+          // dispatch((res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+    // };
   };
 
 //   export const postMessages = text => (dispatch, getState)=>{
