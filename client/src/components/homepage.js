@@ -13,8 +13,15 @@ const Homepage=({currentUser})=>{
         )
     }else{
         return(
-            <div></div>
-            // <MessageTimeline profilePic={currentUser.user.profilePic} username={currentUser.user.username}/>
+            <div id="mainpage" style={{display:"flex"}}>
+                <div id="one" style={{width:"30%",backgroundColor:"blue",height:"10vh"}}>
+                   
+                </div>
+                <div id="two" class="container" style={{width:"70%",backgroundColor:"black",height:"10vh"}}>
+                    
+                </div>
+            </div>
+            
         )
     }
 }

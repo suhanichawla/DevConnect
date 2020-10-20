@@ -2,9 +2,9 @@ body {
  background-color: #e6ecf0
 }
 
-.navbar{
+/* .navbar{
   margin-bottom: 1rem;
-}
+} */
 
 .appcomp > .navbar{
   background-image: linear-gradient(to right, #000000 , #EB5757);

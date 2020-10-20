@@ -13,7 +13,7 @@ const Main= props=>{
     const {authUser,errors,removeError,currentUser} = props;
     console.log(currentUser)
     return(
-        <div className="container">
+        <div className>
             <Switch>
     <Route exact path="/" render={props => <Homepage currentUser={currentUser} {...props}/>}></Route>
     <Route exact path="/signup" render={props => <Signup {...props}/>}></Route>
