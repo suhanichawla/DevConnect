@@ -1,5 +1,7 @@
 import React from "react"
 import {Link} from "react-router-dom"
+import UserInfo from './userinfo'
+import Feed from './feed'
 const Homepage=({currentUser})=>{
     if(!currentUser.isAuth){
         return(
@@ -14,11 +16,11 @@ const Homepage=({currentUser})=>{
     }else{
         return(
             <div id="mainpage" style={{display:"flex"}}>
-                <div id="one" style={{width:"30%",backgroundColor:"blue",height:"10vh"}}>
-                   
+                <div id="one" style={{textAlign:"center",width:"30%",backgroundColor:"blue",minHeight:"100vh"}}>
+                   <UserInfo />
                 </div>
-                <div id="two" class="container" style={{width:"70%",backgroundColor:"black",height:"10vh"}}>
-                    
+                <div id="two" class="container" style={{width:"70%",padding:"0px",backgroundColor:"black",minHeight:"100vh"}}>
+                    <Feed/>
                 </div>
             </div>
             

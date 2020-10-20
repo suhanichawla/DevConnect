@@ -29,7 +29,6 @@ exports.signin=async function(req,res,next){
 exports.signup=async function(req,res,next){
     try{
         userdata=req.body
-        userdata["profilePic"]=null;
         userdata["circles"]=[];
         userdata["posts"]=[];
         let user=await db.User.create(userdata)

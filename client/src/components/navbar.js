@@ -20,9 +20,9 @@ class Navbar extends Component{
                         <ul className="nav navbar-nav navbar-right">
                            <li>
                             <Link
-                            to={`/`}
+                            to={`/profile`}
                             >
-                            GO HOME!
+                            Profile
                             </Link>
                             </li>
                             <li><a onClick={this.logout}>LoGoUt</a></li>

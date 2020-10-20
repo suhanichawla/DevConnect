@@ -63,6 +63,14 @@ exports.userCirclePosts=async function(req,res,next){
                   model: 'Circle',
                   select: 'name'
                 }
+              }).populate({
+                path: 'posts.postID',
+                model: 'Post',
+                populate: {
+                  path: 'user',
+                  model: 'User',
+                  select: 'name'
+                }
               })
             for(var j=0;j<circle.posts.length;j++){
                 var category=circle.posts[j].postCategory
