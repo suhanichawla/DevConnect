@@ -1,11 +1,18 @@
 import React,{Component} from "react"
-import {Link} from "react-router-dom"
+import {Link,withRouter} from "react-router-dom"
 import {connect} from "react-redux"
 import {logout} from "../store/actions/auth"
 class Navbar extends Component{
-    logout= e=>{
-        e.preventDefault();
-        this.props.logout();
+    logout= async (e)=>{
+        try{
+            e.preventDefault();
+            await this.props.logout()
+            this.props.history.push("/")
+        }catch(e){
+            console.log("Come error occured")
+        }
+        
+
     }
     render(){
         return(
@@ -44,4 +51,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{logout})(Navbar);
+export default withRouter(connect(mapStateToProps,{logout})(Navbar));

@@ -1,14 +1,18 @@
 import React,{Component} from "react"
 import {Link} from "react-router-dom"
 import {connect} from "react-redux"
+import {getUserCircles} from '../store/actions/circles'
 
 class UserInfo extends Component{
+    componentDidMount(){
+        this.props.getUserCircles()
+      }
     
     render(){
-        var {currentUser}=this.props;
-        //console.log("cupp",currentUser.user.profilePic)
-        var circlelist=currentUser.user.circles.map(el=>{
-            return <li>el.name</li>
+        var {currentUser,userCircles}=this.props;
+        console.log("cupp",userCircles)
+        var circlelist=userCircles.map(el=>{
+            return <li>{el.name}</li>
         })
         return(
             <>
@@ -32,9 +36,10 @@ class UserInfo extends Component{
 }
 function mapStateToProps(reduxState){
     return {
-        currentUser:reduxState.currentUser
+        currentUser:reduxState.currentUser,
+        userCircles:reduxState.circles.userCircles
     }
 }
 
-export default connect(mapStateToProps,null)(UserInfo);
+export default connect(mapStateToProps,{getUserCircles})(UserInfo);
 
