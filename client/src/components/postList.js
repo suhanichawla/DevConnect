@@ -9,7 +9,7 @@ export default class PostList extends Component {
     return (
         
       <div> 
-          textInComponent 
+          Posts
             <ul>
                 {postlist}
             </ul>

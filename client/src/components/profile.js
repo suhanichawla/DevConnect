@@ -4,6 +4,7 @@ import {fetchUserPosts} from "../store/actions/posts"
 import {getUserCircles,getCircles} from '../store/actions/circles'
 import CircleSection from './circleSection'
 import PostSection from './postSection'
+import PostList from './postList'
 // import currentUser from '../store/reducer/currentUser';
 import PersonalInfo from './personalinfo'
 import SectionNav from './sectionNav'
@@ -27,7 +28,7 @@ class Profile extends Component {
     // console.log("user posts",this.props.posts)
     // console.log("all circles",this.props.allCircles)
      //console.log("user circles",this.props.userCircles)
-     var dispalyedSection= this.state.circleSection ? <CircleSection userCircles={this.props.userCircles} allCircles={this.props.allCircles} userID={this.props.currentUser._id}/> : <PostSection/>
+     var dispalyedSection= this.state.circleSection ? <CircleSection userCircles={this.props.userCircles} allCircles={this.props.allCircles} userID={this.props.currentUser._id}/> : <PostList posts={this.props.posts}/>
     return (
       <div> 
         <PersonalInfo currentUser={this.props.currentUser}/>

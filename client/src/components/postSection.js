@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
-export default class PostSection extends Component {
+class PostSection extends Component {
+  // this.props.userPosts
   render() {
     return (
-      <div> textInComponent </div>
+      <div> 
+
+      </div>
     );
   }
 }

@@ -155,7 +155,28 @@ exports.deleteComment=async function(req,res,next){
 exports.getPosts=async function(req,res,next){
     try{
         let foundUser=await db.User.findById(req.params.userID)
-            .populate("posts")               
+            // .populate({
+            //     path:"posts",
+            //     model:"Post"
+            // })
+            .populate({
+                path: 'posts',
+                model: 'Post',
+                populate: {
+                  path: 'user',
+                  model: 'User',
+                  select: 'name'
+                }
+              })  
+              .populate({
+                path: 'posts',
+                model: 'Post',
+                populate: {
+                  path: 'circle',
+                  model: 'Circle',
+                  select: 'name'
+                }
+              })               
         return res.status(200).json(foundUser.posts);
     }catch(e){
         return next(e)
