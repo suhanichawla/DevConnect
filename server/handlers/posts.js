@@ -155,10 +155,6 @@ exports.deleteComment=async function(req,res,next){
 exports.getPosts=async function(req,res,next){
     try{
         let foundUser=await db.User.findById(req.params.userID)
-            // .populate({
-            //     path:"posts",
-            //     model:"Post"
-            // })
             .populate({
                 path: 'posts',
                 model: 'Post',

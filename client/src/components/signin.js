@@ -3,6 +3,7 @@ import {authUser} from '../store/actions/auth'
 import {fetchUserPosts} from '../store/actions/posts'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import man from '../assets/man.png'
 
 class Signin extends Component {
         constructor(props){
@@ -43,12 +44,15 @@ class Signin extends Component {
     
       render() {
         return (
+          <>
+          
           <div style={{display:"flex"}}>
-              <div style={{width:"50%"}}>
-    
-              </div>
-              <div style={{width:"50%"}}>
+              
+              <div style={{width:"50%",marginLeft:"6vw",display:"flex",flexDirection:"column",justifyContent:"center"}}>
               <div class="container">
+              <div style={{textAlign:"center", marginTop:"2vh",marginBottom:"2vh"}}>
+            <h2>Welcome Back!</h2>
+            </div>
       <form class="form-horizontal" onSubmit={this.handleSubmit}>
         <div class="form-group">
           <label class="control-label col-sm-2" for="email">Email:</label>
@@ -62,15 +66,20 @@ class Signin extends Component {
             <input onChange={this.handleChange} type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" />
           </div>
         </div>
+        <br></br>
         <div class="form-group">        
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </form>
     </div>
               </div>
+              <div style={{width:"50%",marginRight:"6vw", display:"flex",flexDirection:"column",justifyContent:"center"}}>
+                  <img src={man} />
+              </div>
           </div>
+          </>
          
     );
   }

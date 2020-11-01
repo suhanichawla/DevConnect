@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 body {
- background-color: #e6ecf0
+ background-color: #edffea;
+ font-family: 'Itim', cursive;
 }
 
 /* .navbar{
@@ -7,8 +10,15 @@ body {
 } */
 
 .appcomp > .navbar{
-  background-image: linear-gradient(to right, #000000 , #EB5757);
+  background-image: linear-gradient(to left, #30b28e ,#58e1b8, #ffffff);
   background-size: 100%;
+}
+
+#parent {display: table;}
+
+#child {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .navbar a{
@@ -16,6 +26,11 @@ body {
   color:white;
 }
 
+.btn-primary{
+  background-color: #58e1b8;
+  border-color: #58e1b8;
+  width: 15vw;
+}
 
 .navbar a:hover{
   color:white;
@@ -28,7 +43,6 @@ body {
 }
 .navbar-brand > img{
   display: inline-block;
-  width: 20px;
   margin-bottom: 2px;
   margin-right: 5px;
   border-radius: 2px;
@@ -53,8 +67,8 @@ ul.nav.navbar-nav li{
   background-position: center center;
   background-size: cover;
   flex-direction: column;
-  color:white;
-  text-shadow:0 0 8px #66757f
+  color:black;
+  text-shadow:0 0 8px #ffffff
 }
 
 #messages .list-group-item{

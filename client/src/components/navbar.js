@@ -2,6 +2,7 @@ import React,{Component} from "react"
 import {Link,withRouter} from "react-router-dom"
 import {connect} from "react-redux"
 import {logout} from "../store/actions/auth"
+import logo from '../assets/Dev-connect-logoyay.png'
 class Navbar extends Component{
     logout= async (e)=>{
         try{
@@ -20,7 +21,7 @@ class Navbar extends Component{
                 <div className="container-fluid">
                     <div className="navbar-header">
                     <Link to="/" className="navbar-brand">
-                        <img src="" alt="logo home" height="50px" width="200px"/>
+                        <img src={logo} alt="logo home" height="50px"/>
                     </Link>
                     </div>
                     {this.props.currentUser.isAuth ?( 
@@ -36,6 +37,7 @@ class Navbar extends Component{
                         </ul>
                     ):
                     <ul className="nav navbar-nav navbar-right">
+                        <li><Link to="/">Home</Link></li>
                         <li><Link to="/signup">Signup</Link></li>
                         <li><Link to="/signin">Signin</Link></li>
                     </ul>
