@@ -28,11 +28,11 @@ class Feed extends Component {
     render() {
         const {posts,user}=this.props
         console.log("user is",user)
-       console.log("postsss",this.props.posts[this.state.currentTab])
+       console.log("postsssss",this.props.posts)
         return (
             <>
            <CategoryBar changeTab={this.handleTabChange}/>
-           <PostList deletePost={this.handleDelete} userID={user._id} posts={posts[this.state.currentTab]}/>
+           <PostList deletePost={this.handleDelete} userID={user._id} posts={this.props.posts[this.state.currentTab]}/>
            </>
         );
     }

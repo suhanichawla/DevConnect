@@ -1,7 +1,7 @@
 
 import {apiCall} from "../../services/api"
 import {addError} from "./error"
-import {LOAD_USER_POSTS,LOAD_FEED_POSTS,CREATE_POST, DELETE_POST} from "../actionTypes"
+import {LOAD_USER_POSTS,LOAD_FEED_POSTS,CREATE_POST, DELETE_POST,UPDATE_POST} from "../actionTypes"
 
 export const loadPosts=posts=>({
     type:LOAD_USER_POSTS,
@@ -20,6 +20,11 @@ export const createPost=post=>({
 
 export const removePost=post=>({
   type:DELETE_POST,
+  post
+})
+
+export const updatePost=post=>({
+  type:UPDATE_POST,
   post
 })
 
@@ -43,6 +48,21 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
         });
     // };
   };
+
+  export const likePost=(postid)=>(dispatch, getState) =>{
+    let {currentUser}=getState();
+      let userid=currentUser.user._id;
+      console.log("user id is",currentUser.user._id)
+      return apiCall("get", `/api/${userid}/post/${postid}/like`)
+        .then(res => {
+          console.log("response for like post",res);
+          dispatch(updatePost(res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+  } 
 
   export const fetchFeedPosts=()=> (dispatch, getState) => {
     //  return dispatch => {

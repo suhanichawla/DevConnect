@@ -54,7 +54,7 @@ exports.userCirclePosts=async function(req,res,next){
         console.log("user? ",user.circles)
         var responseObj={}
         for(var i=0;i<user.circles.length;i++){
-            console.log("circle id",user.circles[i])
+           // console.log("circle id",user.circles[i])
             var circle=await db.Circle.findById(user.circles[i]).populate({
                 path: 'posts.postID',
                 model: 'Post',
@@ -74,8 +74,8 @@ exports.userCirclePosts=async function(req,res,next){
               })
             for(var j=0;j<circle.posts.length;j++){
                 var category=circle.posts[j].postCategory
-                console.log("populated circle post ",circle.posts[j])
-                console.log("resp??",responseObj[category])
+                // console.log("populated circle post ",circle.posts[j])
+                // console.log("resp??",responseObj[category])
                 if(responseObj[category]){
                     var currvalue=responseObj[category]
                     console.log("currvalue",currvalue)
@@ -100,6 +100,7 @@ exports.userCirclePosts=async function(req,res,next){
 
 exports.likePost=async function(req,res,next){
     try{
+        console.log("this is executing on backend")
         let found_post=await db.Post.findById(req.params.postID);
         let likes=found_post["likes"].filter((el)=>{
             console.log("el is",el);
@@ -113,7 +114,15 @@ exports.likePost=async function(req,res,next){
             numOfLikes=found_post["numOfLikes"]+1;
             likes.push(req.params.userID)
         }
-        updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{numOfLikes,likes}},{ returnOriginal: false })
+        updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{numOfLikes,likes}},{new: true})
+        .populate("user",{
+            name:true,
+            email:true
+        })
+        .populate("circle",{
+            name:true
+        })
+        console.log("updated post is ",updated_post)
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
