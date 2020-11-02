@@ -11,6 +11,13 @@ class PostCard extends Component {
   }
   render() {
       var {data,onDelete}=this.props
+      var isLiked=data.likes.includes(data.user._id)
+      // var comments=data.comments.length==0 ? <p>No comments </p> :
+      // data.comments.map((el)=>{
+      //   <li><span>
+      //     {el.comment}
+      //     </span></li>
+      // })
       // console.log("myposttt",data)
     return (
       <div className="card" style={{width: "18rem"}}>
@@ -20,7 +27,7 @@ class PostCard extends Component {
           <p className="card-text">{data.caption}</p>
           <p className="card-text">
             <span style={{display:"flex",justifyContent:"space-around"}}>
-            <i onClick={()=>this.likePost(data._id)} class="fa far fa-heart fa-lg"></i>
+            <i onClick={()=>this.likePost(data._id)} style={{color:isLiked ? "red" : "grey",cursor:"pointer"}} class="fa far fa-heart fa-lg"></i>
             {data.numOfLikes} likes
             <i class="fa far fa-comments fa-lg"></i>
             </span>

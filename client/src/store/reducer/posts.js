@@ -27,16 +27,16 @@ export default (state=defaultState,action)=>{
         case DELETE_POST:
             //updating feed state
             console.log("post is",action.post)
-            var feedcopy=state.feedPosts
+            var feedcopy={...state.feedPosts}
             console.log("feedcopy before",feedcopy)
             
             var feed=feedcopy[action.post.category]
             console.log("currently feeed list is ",feed)
-            // var postlist=feed.filter((el)=>{
-            //     return el._id!==action.post._id
-            // })
-            // feedcopy[action.post.category]=postlist
-            // console.log("feedcopy after",feedcopy)
+            var postlist=feed.filter((el)=>{
+                return el._id!==action.post._id
+            })
+            feedcopy[action.post.category]=postlist
+            console.log("feedcopy after",feedcopy)
 
             //updating used posts state
             var userPostsCopy=state.userPosts

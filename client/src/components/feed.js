@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {fetchFeedPosts} from '../store/actions/posts'
+import {fetchFeedPosts,deletePost} from '../store/actions/posts'
 import {connect} from "react-redux"
 import CategoryBar from './categoryBar';
 import PostList from './postList'
@@ -45,4 +45,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{fetchFeedPosts})(Feed);
+export default connect(mapStateToProps,{fetchFeedPosts,deletePost})(Feed);
