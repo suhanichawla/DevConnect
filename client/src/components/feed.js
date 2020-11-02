@@ -3,12 +3,18 @@ import {fetchFeedPosts} from '../store/actions/posts'
 import {connect} from "react-redux"
 import CategoryBar from './categoryBar';
 import PostList from './postList'
+
 class Feed extends Component {
     constructor(){
         super()
         this.state={
             currentTab:"project"
         }
+    }
+    handleDelete=async(postid)=>{
+        console.log("reached here with postid",postid)
+        await this.props.deletePost(postid)
+        console.log("deleted post")
     }
     handleTabChange=(tabname)=>{
         this.setState({currentTab:tabname})
@@ -20,13 +26,13 @@ class Feed extends Component {
     }
 
     render() {
-        const {posts}=this.props
-        console.log(posts)
+        const {posts,user}=this.props
+        console.log("user is",user)
        console.log("postsss",this.props.posts[this.state.currentTab])
         return (
             <>
            <CategoryBar changeTab={this.handleTabChange}/>
-           <PostList posts={posts[this.state.currentTab]}/>
+           <PostList deletePost={this.handleDelete} userID={user._id} posts={posts[this.state.currentTab]}/>
            </>
         );
     }
@@ -34,7 +40,8 @@ class Feed extends Component {
 
 function mapStateToProps(reduxState){
     return {
-        posts:reduxState.posts.feedPosts
+        posts:reduxState.posts.feedPosts,
+        user:reduxState.currentUser.user
     }
 }
 

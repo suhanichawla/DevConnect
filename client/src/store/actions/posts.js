@@ -1,7 +1,7 @@
 
 import {apiCall} from "../../services/api"
 import {addError} from "./error"
-import {LOAD_USER_POSTS,LOAD_FEED_POSTS} from "../actionTypes"
+import {LOAD_USER_POSTS,LOAD_FEED_POSTS,CREATE_POST, DELETE_POST} from "../actionTypes"
 
 export const loadPosts=posts=>({
     type:LOAD_USER_POSTS,
@@ -11,6 +11,16 @@ export const loadPosts=posts=>({
 export const loadFeedPosts=posts=>({
   type:LOAD_FEED_POSTS,
   posts
+})
+
+export const createPost=post=>({
+  type:CREATE_POST,
+  post
+})
+
+export const removePost=post=>({
+  type:DELETE_POST,
+  post
 })
 
 // export const remove=id=>({
@@ -25,7 +35,6 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
       console.log("user id is",currentUser.user._id)
       return apiCall("get", `/api/${id}/post`)
         .then(res => {
-          console.log("response",res);
           dispatch(loadPosts(res));
         })
         .catch(err => {
@@ -42,7 +51,7 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
      console.log("user id is",currentUser.user._id)
       return apiCall("get", `/api/${userid}/post/feed`)
         .then(res => {
-          console.log("response",res);
+          console.log("response for ftech feed posts",res);
           dispatch(loadFeedPosts(res));
         })
         .catch(err => {
@@ -60,9 +69,27 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
       var postData=data
       return apiCall("post", `/api/${id}/post/`,postData)
         .then(res => {
-          console.log("response",res);
+          console.log("response from api",res);
           //that post is returned, so basically we need to add it in the feed state!!
-          // dispatch((res));
+          dispatch(createPost(res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+    // };
+  };
+
+  export const deletePost =(postid)=> (dispatch, getState) => {
+    // return dispatch => {
+      let {currentUser}=getState();
+      let id=currentUser.user._id;
+      console.log("user id is",currentUser.user._id)
+      return apiCall("delete", `/api/${id}/post/${postid}`)
+        .then(res => {
+          console.log("response from api",res);
+          //that post is returned, so basically we need to add it in the feed state!!
+          dispatch(removePost(res));
         })
         .catch(err => {
           console.log(err)

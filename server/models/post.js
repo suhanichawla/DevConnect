@@ -62,7 +62,11 @@ postSchema.pre("remove",async function(next){
         user.posts.remove(this.id)
         await user.save();
         let circle=await Circle.findById(this.circle);
-        circle.posts.remove(this.id)
+        console.log("circle posts is ",circle.posts)
+        circle.posts=circle.posts.filter((post)=>{
+            return post.postID!=this.id
+        })
+        console.log("circle posts after removing ",circle.posts)
         await circle.save();
         return next();
     }catch(e){

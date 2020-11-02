@@ -8,14 +8,31 @@ export function setTokenHeader(token){
     }
 }
 
-export function apiCall(method,path,data){
-    console.log("came inside api call")
+export function apiCall(method,path,data,headers={}){
+    console.log("came inside api call with headers",headers)
     return new Promise((resolve,reject)=>{
-        return axios[method](path,data)
+        return axios[method](path,data,headers)
         .then(res=>(resolve(res.data)))
         .catch(err=>{
             console.log("coming here with error",err)
             return reject(err.response.data.error)
         })
     })
+}
+
+export async function imageUploadCall(method,path,data,headers={}) {
+    try{
+        var response=await fetch(path,{
+            method,
+            body:data,
+            headers
+        })
+        var parsedResponse=await response.json()
+       // console.log("fetch call ",obj)
+        return parsedResponse;
+    }catch(e){
+        console.log("error",e)
+    }
+    
+    
 }

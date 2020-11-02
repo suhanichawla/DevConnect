@@ -26,14 +26,22 @@ class Navbar extends Component{
                     </div>
                     {this.props.currentUser.isAuth ?( 
                         <ul className="nav navbar-nav navbar-right">
-                           <li>
+                           
+                            <li>
+                            <Link
+                            to={`/`}
+                            >
+                            Feed
+                            </Link>
+                            </li>
+                            <li>
                             <Link
                             to={`/profile`}
                             >
                             Profile
                             </Link>
                             </li>
-                            <li><a onClick={this.logout}>LoGoUt</a></li>
+                            <li><a style={{color:"white"}} onClick={this.logout}>Logout</a></li>
                         </ul>
                     ):
                     <ul className="nav navbar-nav navbar-right">

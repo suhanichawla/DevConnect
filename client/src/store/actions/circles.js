@@ -3,12 +3,14 @@ import {JOIN_CRICLE, LEAVE_CIRCLE, GET_USER_CIRCLES,GET_CIRCLES} from "../action
 import {addError,removeError} from "../actions/error"
 
 
-export const joinCircle=response=>({
+export const joinCircle=circle=>({
     type:JOIN_CRICLE,
+    circle
 })
 
-export const leaveCircle=response=>({
+export const leaveCircle=circle=>({
   type:LEAVE_CIRCLE,
+  circle
 })
 
 export const getUsersCircles=circles=>({

@@ -8,10 +8,19 @@ var defaultState={
 export default (state=defaultState,action)=>{
     switch(action.type){
         case JOIN_CRICLE:
-            return state
+            var usercircles= state.userCircles.slice()
+            usercircles.push(action.circle)
+            console.log("now usercircles is",usercircles)
+            return {...state,userCircles:usercircles}
 
         case LEAVE_CIRCLE:
-            return state
+            var usercircles= state.userCircles.slice()
+            var filteredUserCircles=usercircles.filter((element)=>{
+                console.log(element._id!==action.circle._id)
+                return element._id!==action.circle._id
+            })
+            console.log("now usercircles is",filteredUserCircles)
+            return {...state,userCircles:filteredUserCircles}
 
         case GET_USER_CIRCLES:
             return {...state,userCircles:action.circles}
