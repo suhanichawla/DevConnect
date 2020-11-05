@@ -72,6 +72,16 @@ exports.userCirclePosts=async function(req,res,next){
                   select: 'name'
                 }
               })
+              .populate({
+                path: 'posts.postID',
+                model: 'Post',
+                populate: {
+                  path: 'comments.userID',
+                  model: 'User',
+                  select: 'name'
+                }
+              })
+              console.log("a circle can dream",circle.posts)
             for(var j=0;j<circle.posts.length;j++){
                 var category=circle.posts[j].postCategory
                 // console.log("populated circle post ",circle.posts[j])
@@ -122,6 +132,11 @@ exports.likePost=async function(req,res,next){
         .populate("circle",{
             name:true
         })
+        .populate({
+            path: 'comments.userID',
+            model: 'User',
+            select: 'name'
+        })
         console.log("updated post is ",updated_post)
         return res.status(200).json(updated_post)
     }catch(e){
@@ -134,12 +149,24 @@ exports.commentOnPost=async function(req,res,next){
         let found_post=await db.Post.findById(req.params.postID);
         let comments=found_post["comments"]
         let obj={userID:req.params.userID,comment:req.body.comment}
-       // console.log(obj);
+        console.log("commenting",obj);
         comments.push(obj)
         let numOfComments=comments.length;
        // console.log("comments is ",comments)
         updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{comments,numOfComments}},{new: true})
-      //  console.log("updated post",updated_post);
+        .populate("user",{
+            name:true,
+            email:true
+        })
+        .populate("circle",{
+            name:true
+        })
+        .populate({
+            path: 'comments.userID',
+            model: 'User',
+            select: 'name'
+        })
+       console.log("updated post after comment",updated_post);
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
@@ -154,6 +181,18 @@ exports.deleteComment=async function(req,res,next){
         })
         let numOfComments=comments.length;
         updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{comments,numOfComments}},{new: true})
+        .populate("user",{
+            name:true,
+            email:true
+        })
+        .populate("circle",{
+            name:true
+        })
+        .populate({
+            path: 'comments.userID',
+            model: 'User',
+            select: 'name'
+        })
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
@@ -181,7 +220,16 @@ exports.getPosts=async function(req,res,next){
                   model: 'Circle',
                   select: 'name'
                 }
-              })               
+              }) 
+              .populate({
+                path: 'posts',
+                model: 'Post',
+                populate: {
+                  path: 'comments.userID',
+                  model: 'User',
+                  select: 'name'
+                }
+              })              
         return res.status(200).json(foundUser.posts);
     }catch(e){
         return next(e)

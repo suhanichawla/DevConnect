@@ -6,10 +6,12 @@ const Modal = ({ handleClose, show, children }) => {
   return (
     <div className={showHideClassName}>
       <div className="modal-container">
-        {children}
-        <a href="javascript:;" className="modal-close" onClick={handleClose}>
-          close
+        <div style={{textAlign:"right"}}>
+        <a  href="javascript:;" className="modal-close onClick" onClick={handleClose}>
+        <i style={{color:"red"}} class="fa fa-times-circle fa-2x"></i>
         </a>
+        </div>
+        {children}
       </div>
     </div>
   );

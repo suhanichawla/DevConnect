@@ -18,10 +18,12 @@ class CircleSection extends Component {
       //console.log("useer id",this.props.userID);
     var mycircles=this.props.userCircles ? this.props.userCircles.map((el)=>{
         var ismember=el.members.includes(this.props.userID)
-        return <li>
+        //console.log("img",el)
+        return <li class="circleLi">
             <p>{el.name} Circle</p>
-            <p>{el.members.length} Members</p>
-            <button onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
+            <img style={{borderRadius:"50%",height:"200px", width:"200px"}} src={el.image} height="60px" width="60px" />
+            <p><i class="fa fas fa-users"></i> {el.members.length} Members</p>
+            <button className="small-button onClick" onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
         </li>
     }): <div>Your circles will appear here</div>
      console.log("all",this.props.allCircles)
@@ -36,23 +38,28 @@ class CircleSection extends Component {
    // console.log("all circles",allcircles);
     var allcircles=leftcircles.map((el)=>{
         var ismember=el.members.includes(this.props.userID)
-        return <li>
+        return <li class="circleLi">
             <p>{el.name} Circle</p>
-            <p>{el.members.length} Members</p>
-            <button onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
+            <img style={{borderRadius:"50%",height:"200px", width:"200px"}} src={el.image}  />
+            <p><i class="fa fas fa-users"></i> {el.members.length} Members</p>
+            <button className="small-button onClick" onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
         </li>
     })
     console.log("all circles li list",allcircles)
     return (
         <>
-      <div> Your circles </div>
-      <ul>
+      <div style={{padding:"50px",textAlign:"center"}}> Your circles </div>
+      <div style={{textAlign:"center"}}>
+      <ul className="circleList">
           {mycircles}
       </ul>
-      <div>All circles</div>
-      <ul>
-          {allcircles && allcircles.length==0 ? <div>Looks like you followed everything</div> : allcircles}
+      </div>
+      <div style={{padding:"50px",textAlign:"center"}}>All circles</div>
+      <div style={{textAlign:"center"}}>
+      <ul className="circleList">
+          {allcircles && allcircles.length==0 ? <div className="extraHeading">Looks like you followed everything</div> : allcircles}
       </ul>
+      </div>
       </>
     );
   }

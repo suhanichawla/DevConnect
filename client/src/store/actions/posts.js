@@ -64,6 +64,36 @@ export const fetchUserPosts =()=> (dispatch, getState) => {
         });
   } 
 
+  export const deleteComment=(postid,commentid)=>(dispatch,getState)=>{
+      let {currentUser}=getState();
+      let userid=currentUser.user._id;
+      console.log("user id is",currentUser.user._id)
+      return apiCall("delete", `/api/${userid}/post/${postid}/comment/${commentid}`)
+        .then(res => {
+          console.log("response for like post",res);
+          dispatch(updatePost(res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+  }
+
+  export const commentOnPost=(postid,comment)=>(dispatch, getState) =>{
+    let {currentUser}=getState();
+      let userid=currentUser.user._id;
+      console.log("user id is",currentUser.user._id)
+      return apiCall("post", `/api/${userid}/post/${postid}/comment`,{comment})
+        .then(res => {
+          console.log("response for comment post",res);
+          dispatch(updatePost(res));
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addError(err.message));
+        });
+  } 
+
   export const fetchFeedPosts=()=> (dispatch, getState) => {
     //  return dispatch => {
       let {currentUser}=getState();

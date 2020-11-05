@@ -44,7 +44,8 @@ exports.getCircles=async function(req,res,next){
         let foundUser=await db.User.findById(req.params.userID)
             .populate("circles",{
                 members:true,
-                name:true
+                name:true,
+                image:true
             })               
         return res.status(200).json(foundUser.circles);
     }catch(e){

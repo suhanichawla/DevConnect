@@ -14,9 +14,9 @@ export default class PersonalInfo extends Component {
             </div>
             <div style={{width:"2vw"}}></div>
             <div className="textInfo" style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
-                <p>{currentUser.name}</p>
-                <p>{currentUser.email}</p>
-                <p>{currentUser.contact}</p>
+                <p>Name: {currentUser.name}</p>
+                <p>Email: {currentUser.email}</p>
+                <p>Contact: {currentUser.contact}</p>
                 <p>Born on {currentUser.dob}</p>
             </div>
               </>

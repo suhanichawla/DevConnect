@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 body {
- background-color: #edffea;
+ background-color: #f9f6f7;
  font-family: 'Itim', cursive;
+ 
 }
 
 /* .navbar{
@@ -10,9 +11,16 @@ body {
 } */
 
 .appcomp > .navbar{
-  background-image: linear-gradient(to left, #30b28e ,#58e1b8, #ffffff);
+  background-image: linear-gradient(to left,#18191a , #222,black,hsl(210,4,9), rgb(24,25,26));
+  background-image: linear-gradient(to left,#18191a , #222,black,rgb(22,23,24),rgb(24,25,26));
+  background-color: #8675a9;
   background-size: 100%;
+ 
 }
+
+/* .bg{
+  background-image: linear-gradient(to left, #0F2027 ,#203A43, #2C5364);
+} */
 
 #parent {display: table;}
 
@@ -50,6 +58,59 @@ body {
 
 ul.nav.navbar-nav li{
   margin:0 0.5 rem;
+}
+.circleList{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.circleLi{
+  text-align: center;
+  width: 20%;
+}
+
+.circleLiFeed{
+  text-align: center;
+  width: 50%;
+}
+
+
+.postcard{
+  width:50%;
+}
+
+.postlist{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.small-button{
+  background-color: #58e1b8;
+  border-color: #58e1b8;
+  width: 5vw;
+}
+
+.postDeleteDiv{
+  text-align: right;
+  padding: 5px;
+  margin-right: 10px;
+  color:"red"
+}
+
+.fa-trash{
+  color:red;
+}
+
+.extraHeading{
+  font-size: 40px;
+}
+.onclick{
+  cursor: pointer;
+}
+
+ul{
+  list-style-type:none;
 }
 
 .home-hero{
