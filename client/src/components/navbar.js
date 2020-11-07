@@ -47,6 +47,15 @@ class Navbar extends Component{
                                 </Link>
                                 </li>  
                             }
+                            {this.props.location.pathname!="/chat" &&
+                             <li>
+                                <Link
+                                to={`/chat`}
+                                >
+                                Chat
+                                </Link>
+                                </li>  
+                            }
                             <li><a style={{color:"white"}} className="onClick" onClick={this.logout}>Logout</a></li>
                         </ul>
                     ):

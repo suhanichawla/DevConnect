@@ -43,7 +43,7 @@ class PostCard extends Component {
             
             <span>
           {el.userID.name} says {el.comment} 
-          <i onClick={()=>this.props.deleteComment(data._id,el._id)} style={{color:"red"}} class="fa fas fa-trash onClick"></i>
+          <i onClick={()=>this.props.deleteComment(data._id,el._id)} style={{color:"#037791"}} class="fa fas fa-trash onClick"></i>
           </span></li>
         }else{
           return <li><span>
@@ -64,7 +64,7 @@ class PostCard extends Component {
           <p className="card-text">{data.caption}</p>
           <p className="card-text">
             <span style={{display:"flex",justifyContent:"space-around"}}>
-            <i onClick={()=>this.likePost(data._id)} style={{color:isLiked ? "red" : "grey",cursor:"pointer"}} class="fa far fa-heart fa-lg"></i>
+            <i onClick={()=>this.likePost(data._id)} style={{color:isLiked ? "#037791" : "grey",cursor:"pointer"}} class="fa far fa-heart fa-lg"></i>
             {data.numOfLikes} likes
             <i onClick={this.changeCommentVisiblity} class="fa far fa-comments fa-lg onclick"></i>
             {/* onClick={()=>this.commentPost(data._id)} */}

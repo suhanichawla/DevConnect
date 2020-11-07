@@ -8,7 +8,7 @@ const Modal = ({ handleClose, show, children }) => {
       <div className="modal-container">
         <div style={{textAlign:"right"}}>
         <a  href="javascript:;" className="modal-close onClick" onClick={handleClose}>
-        <i style={{color:"red"}} class="fa fa-times-circle fa-2x"></i>
+        <i style={{color:"#037791"}} class="fa fa-times-circle fa-2x"></i>
         </a>
         </div>
         {children}

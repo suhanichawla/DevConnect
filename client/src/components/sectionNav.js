@@ -15,7 +15,7 @@ export default class SectionNav extends Component {
       }
   render() {
     return (
-        <ul class="nav nav-tabs" style={{justifyContent: 'space-around',backgroundColor:"beige"}}>
+        <ul class="nav nav-tabs" style={{justifyContent: 'space-around'}}>
             <li class="nav-item"  onClick={()=>this.handleClick(true,"circle")}>
             <a class="nav-link active" id="circle" href="#">Circles</a>
             </li>

@@ -97,7 +97,9 @@ ul.nav.navbar-nav li{
   margin-right: 10px;
   color:"red"
 }
-
+.nav-link{
+  color: black;
+}
 .fa-trash{
   color:red;
 }

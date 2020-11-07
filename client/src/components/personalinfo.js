@@ -10,7 +10,7 @@ export default class PersonalInfo extends Component {
               <>
               <div style={{width:"10vw"}}></div>
               <div class="image" style={{marginTop:"20px",padding:"20px"}}>
-                <img src={currentUser.profilePic} style={{height:"200px",width:"200px",borderRadius:"50%"}}/>
+                <img src={currentUser.profilePic} style={{height:"200px",width:"200px",borderRadius:"50%",border:"2px solid black"}}/>
             </div>
             <div style={{width:"2vw"}}></div>
             <div className="textInfo" style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>

@@ -25,10 +25,10 @@ const Homepage=({currentUser})=>{
     }else{
         return(
             <div id="mainpage" style={{display:"flex"}}>
-                <div id="one" style={{textAlign:"center",width:"30%",backgroundColor:"#f4f4f2",minHeight:"100vh"}}>
+                <div id="one" style={{color:"white",textAlign:"center",width:"30%",backgroundColor:"#171819",minHeight:"100vh"}}>
                    <UserInfo />
                 </div>
-                <div id="two" class="container" style={{width:"70%",padding:"0px",backgroundColor:"#edffea",minHeight:"100vh"}}>
+                <div id="two" class="container" style={{width:"70%",padding:"0px",minHeight:"100vh"}}>
                     <Feed/>
                 </div>
             </div>
