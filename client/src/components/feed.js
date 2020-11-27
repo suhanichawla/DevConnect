@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {fetchFeedPosts,deletePost} from '../store/actions/posts'
+import {getCircleMembers} from '../store/actions/circles'
 import {connect} from "react-redux"
 import CategoryBar from './categoryBar';
 import PostList from './postList'
@@ -22,6 +23,7 @@ class Feed extends Component {
     }
     componentDidMount(){
         //console.log("getting called")
+        this.props.getCircleMembers("5f9f1c23a223fa1cb1785d31")
         this.props.fetchFeedPosts()
     }
 
@@ -45,4 +47,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{fetchFeedPosts,deletePost})(Feed);
+export default connect(mapStateToProps,{fetchFeedPosts,deletePost,getCircleMembers})(Feed);

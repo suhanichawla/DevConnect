@@ -2,7 +2,7 @@ const db=require("../models")
 
 exports.joinCircle=async function(req,res,next){
     try{
-        console.log("req body",req.body)
+        //console.log("req body",req.body)
         let foundCircle=await db.Circle.findById(req.params.circleID)
         foundCircle.members.push(req.params.userID)
         await foundCircle.save();
@@ -17,14 +17,14 @@ exports.joinCircle=async function(req,res,next){
 
 exports.leaveCircle=async function(req,res,next){
     try{
-        console.log("req body",req.body)
+        //console.log("req body",req.body)
         let foundCircle=await db.Circle.findById(req.params.circleID)
         const index = foundCircle.members.indexOf(req.params.userID);
         if (index > -1) {
             foundCircle.members.splice(index, 1);
         }
         //for( var i = 0; i < foundCircle.members.length; i++){ if ( foundCircle.members[i] === req.params.userID) { foundCircle.members.splice(i, 1); }}
-        console.log(foundCircle.members)
+        //console.log(foundCircle.members)
         await foundCircle.save();
         let foundUser=await db.User.findById(req.params.userID)
         const index2 = foundUser.circles.indexOf(req.params.circleID);
@@ -48,6 +48,20 @@ exports.getCircles=async function(req,res,next){
                 image:true
             })               
         return res.status(200).json(foundUser.circles);
+    }catch(e){
+        return next(e)
+    }
+}
+
+exports.getCircleMembers=async function(req,res,next){
+    try{
+        let foundCircle=await db.Circle.findById(req.params.circleID)
+            .populate("members",{
+                name:true,
+                profilePic:true
+            })      
+            console.log("circle members are",foundCircle)         
+        return res.status(200).json(foundCircle.members);
     }catch(e){
         return next(e)
     }

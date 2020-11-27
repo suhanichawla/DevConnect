@@ -13,6 +13,11 @@ export const leaveCircle=circle=>({
   circle
 })
 
+// export const CircleMembers=circle=>({
+//   type:GET_CIRCLE_MEMBERS,
+//   members
+// })
+
 export const getUsersCircles=circles=>({
     type:GET_USER_CIRCLES,
     circles
@@ -68,6 +73,21 @@ export const joinCircleRequest =(circleid)=> (dispatch, getState) => {
         .catch(err => {
           console.log(err)
           dispatch(addError(err.message));
+        });
+    // };
+  };
+
+  export const getCircleMembers =(circleID)=> (dispatch, getState) => {
+    let {currentUser}=getState();
+    let id=currentUser.user._id;
+      return apiCall("get", `/api/${id}/circle/${circleID}/members`)
+        .then(res => {
+          console.log("circle members response",res);
+          //dispatch(getUsersCircles(res));
+        })
+        .catch(err => {
+          console.log(err)
+          //dispatch(addError(err.message));
         });
     // };
   };

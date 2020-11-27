@@ -2,7 +2,7 @@ const db=require("../models")
 
 exports.addPost=async function(req,res,next){
     try{
-        console.log("req body",req.body)
+        //console.log("req body",req.body)
         let foundCircle=await db.Circle.findOne({name:req.body.circle})
         let post=await db.Post.create({
             ...req.body,
@@ -13,7 +13,7 @@ exports.addPost=async function(req,res,next){
             numOfComments:0,
             numOfComments:0
         })
-        console.log(req.params);
+        //console.log(req.params);
         let foundUser=await db.User.findById(req.params.userID)
         foundUser.posts.push(post.id)
         await foundUser.save();
@@ -29,7 +29,7 @@ exports.addPost=async function(req,res,next){
         })
         return res.status(200).json(foundPost);
     }catch(e){
-        console.log("error",e)
+        //console.log("error",e)
         return next(e)
     }
 }
@@ -38,7 +38,7 @@ exports.addPost=async function(req,res,next){
 exports.deletePost= async function(req,res,next){
     try{
         let found_post=await db.Post.findById(req.params.postID)
-        console.log(found_post)
+        //console.log(found_post)
         await found_post.remove();
         return res.status(200).json(found_post)
     }catch(e){
@@ -49,12 +49,12 @@ exports.deletePost= async function(req,res,next){
 
 exports.userCirclePosts=async function(req,res,next){
     try{
-        console.log("coming in this func with id",req.params.userID)
+        //console.log("coming in this func with id",req.params.userID)
         let user=await db.User.findById(req.params.userID)
-        console.log("user? ",user.circles)
+        //console.log("user? ",user.circles)
         var responseObj={}
         for(var i=0;i<user.circles.length;i++){
-           // console.log("circle id",user.circles[i])
+           // //console.log("circle id",user.circles[i])
             var circle=await db.Circle.findById(user.circles[i]).populate({
                 path: 'posts.postID',
                 model: 'Post',
@@ -81,42 +81,42 @@ exports.userCirclePosts=async function(req,res,next){
                   select: 'name'
                 }
               })
-              console.log("a circle can dream",circle.posts)
+              //console.log("a circle can dream",circle.posts)
             for(var j=0;j<circle.posts.length;j++){
                 var category=circle.posts[j].postCategory
-                // console.log("populated circle post ",circle.posts[j])
-                // console.log("resp??",responseObj[category])
+                // //console.log("populated circle post ",circle.posts[j])
+                // //console.log("resp??",responseObj[category])
                 if(responseObj[category]){
                     var currvalue=responseObj[category]
-                    console.log("currvalue",currvalue)
+                    //console.log("currvalue",currvalue)
                     currvalue.push(circle.posts[j].postID)
                     responseObj[category]=currvalue
                 }else{
-                    console.log("so ill come here?")
+                    //console.log("so ill come here?")
                     responseObj[category]=[circle.posts[j].postID]
-                    console.log("response obj now is ",responseObj)
+                    //console.log("response obj now is ",responseObj)
                 }
             }
            
            
             
        }
-       console.log(responseObj)
+       //console.log(responseObj)
        res.status(200).json(responseObj);
     }catch(e){
-        console.log("err is",e)
+        //console.log("err is",e)
     }
 }
 
 exports.likePost=async function(req,res,next){
     try{
-        console.log("this is executing on backend")
+        //console.log("this is executing on backend")
         let found_post=await db.Post.findById(req.params.postID);
         let likes=found_post["likes"].filter((el)=>{
-            console.log("el is",el);
+            //console.log("el is",el);
             return el!=req.params.userID
         })
-        console.log(likes);
+        //console.log(likes);
         let numOfLikes;
         if(likes.length<found_post["likes"].length){
             numOfLikes=found_post["numOfLikes"]-1;
@@ -137,7 +137,7 @@ exports.likePost=async function(req,res,next){
             model: 'User',
             select: 'name'
         })
-        console.log("updated post is ",updated_post)
+        //console.log("updated post is ",updated_post)
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
@@ -149,10 +149,10 @@ exports.commentOnPost=async function(req,res,next){
         let found_post=await db.Post.findById(req.params.postID);
         let comments=found_post["comments"]
         let obj={userID:req.params.userID,comment:req.body.comment}
-        console.log("commenting",obj);
+        //console.log("commenting",obj);
         comments.push(obj)
         let numOfComments=comments.length;
-       // console.log("comments is ",comments)
+       // //console.log("comments is ",comments)
         updated_post=await db.Post.findOneAndUpdate({_id:req.params.postID},{$set:{comments,numOfComments}},{new: true})
         .populate("user",{
             name:true,
@@ -166,7 +166,7 @@ exports.commentOnPost=async function(req,res,next){
             model: 'User',
             select: 'name'
         })
-       console.log("updated post after comment",updated_post);
+       //console.log("updated post after comment",updated_post);
         return res.status(200).json(updated_post)
     }catch(e){
         return next(e);
