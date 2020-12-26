@@ -1,8 +1,9 @@
-import {JOIN_CRICLE,LEAVE_CIRCLE,GET_USER_CIRCLES,GET_CIRCLES} from "../actionTypes"
+import {JOIN_CRICLE,LEAVE_CIRCLE,GET_USER_CIRCLES,GET_CIRCLES,GET_CIRCLE_MEMBERS} from "../actionTypes"
 
 var defaultState={
     userCircles:[],
-    allCircles:[]
+    allCircles:[],
+    circleMembers:[]
 }
 
 export default (state=defaultState,action)=>{
@@ -27,6 +28,9 @@ export default (state=defaultState,action)=>{
         
         case GET_CIRCLES:
             return {...state,allCircles:action.circles}
+
+        case GET_CIRCLE_MEMBERS:
+            return {...state,circleMembers:action.members}
         default:
             return state;
     }

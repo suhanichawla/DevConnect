@@ -23,7 +23,7 @@ class Feed extends Component {
     }
     componentDidMount(){
         //console.log("getting called")
-        this.props.getCircleMembers("5f9f1c23a223fa1cb1785d31")
+        
         this.props.fetchFeedPosts()
     }
 

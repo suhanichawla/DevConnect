@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import {joinCircleRequest,leaveCircleRequest} from '../store/actions/circles'
+import {joinCircleRequest,leaveCircleRequest,getCircleMembers} from '../store/actions/circles'
 import {connect} from "react-redux"
 import {withRouter} from 'react-router-dom'
 
 
 class CircleSection extends Component {
+
+
+    
     handleJoin=async(circleid)=>{
         await this.props.joinCircleRequest(circleid)
         console.log("user added to circle")
@@ -13,6 +16,10 @@ class CircleSection extends Component {
         await this.props.leaveCircleRequest(circleid)
         console.log("user removed from circle")
     }
+
+    
+    
+
     
   render() {
       //console.log("useer id",this.props.userID);
@@ -22,7 +29,7 @@ class CircleSection extends Component {
         return <li class="circleLi">
             <p>{el.name} Circle</p>
             <img style={{borderRadius:"50%",height:"200px", width:"200px"}} src={el.image} height="60px" width="60px" />
-            <p><i class="fa fas fa-users"></i> {el.members.length} Members</p>
+            <p className="onclick" onClick={()=>this.props.showCircleMembers(el._id)}><i class="fa fas fa-users"></i> {el.members.length} Members</p>
             <button className="small-button onClick" onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
         </li>
     }): <div>Your circles will appear here</div>
@@ -41,29 +48,31 @@ class CircleSection extends Component {
         return <li class="circleLi">
             <p>{el.name} Circle</p>
             <img style={{borderRadius:"50%",height:"200px", width:"200px"}} src={el.image}  />
-            <p><i class="fa fas fa-users"></i> {el.members.length} Members</p>
+            <p className="onclick" onClick={()=>this.props.showCircleMembers(el._id)}><i class="fa fas fa-users"></i> {el.members.length} Members</p>
             <button className="small-button onClick" onClick={()=>ismember ? this.handleLeave(el._id) : this.handleJoin(el._id)}>{ismember ? "Leave" : "Join"}</button>
         </li>
     })
     console.log("all circles li list",allcircles)
+
     return (
-        <>
-      <div style={{padding:"50px",textAlign:"center"}}> Your circles </div>
-      <div style={{textAlign:"center"}}>
-      <ul className="circleList">
-          {mycircles}
-      </ul>
-      </div>
-      <div style={{padding:"50px",textAlign:"center"}}>All circles</div>
-      <div style={{textAlign:"center"}}>
-      <ul className="circleList">
-          {allcircles && allcircles.length==0 ? <div className="extraHeading">Looks like you followed everything</div> : allcircles}
-      </ul>
-      </div>
-      </>
+            <>
+        <div style={{padding:"50px",textAlign:"center"}}> Your circles </div>
+        <div style={{textAlign:"center"}}>
+        <ul className="circleList">
+            {mycircles}
+        </ul>
+        </div>
+        <div style={{padding:"50px",textAlign:"center"}}>All circles</div>
+        <div style={{textAlign:"center"}}>
+        <ul className="circleList">
+            {allcircles && allcircles.length==0 ? <div className="extraHeading">Looks like you followed everything</div> : allcircles}
+        </ul>
+        </div>
+        </>
     );
   }
 }
 
 
-export default withRouter(connect(null,{joinCircleRequest,leaveCircleRequest})(CircleSection));
+
+export default withRouter(connect(null,{joinCircleRequest,leaveCircleRequest,getCircleMembers})(CircleSection));

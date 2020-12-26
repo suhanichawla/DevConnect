@@ -1,5 +1,5 @@
 import {apiCall} from "../../services/api"
-import {JOIN_CRICLE, LEAVE_CIRCLE, GET_USER_CIRCLES,GET_CIRCLES} from "../actionTypes"
+import {JOIN_CRICLE, LEAVE_CIRCLE, GET_USER_CIRCLES,GET_CIRCLES,GET_CIRCLE_MEMBERS} from "../actionTypes"
 import {addError,removeError} from "../actions/error"
 
 
@@ -13,10 +13,10 @@ export const leaveCircle=circle=>({
   circle
 })
 
-// export const CircleMembers=circle=>({
-//   type:GET_CIRCLE_MEMBERS,
-//   members
-// })
+export const circleMembers=members=>({
+  type:GET_CIRCLE_MEMBERS,
+  members
+})
 
 export const getUsersCircles=circles=>({
     type:GET_USER_CIRCLES,
@@ -83,11 +83,11 @@ export const joinCircleRequest =(circleid)=> (dispatch, getState) => {
       return apiCall("get", `/api/${id}/circle/${circleID}/members`)
         .then(res => {
           console.log("circle members response",res);
-          //dispatch(getUsersCircles(res));
+          dispatch(circleMembers(res));
         })
         .catch(err => {
           console.log(err)
-          //dispatch(addError(err.message));
+          dispatch(addError(err.message));
         });
     // };
   };
